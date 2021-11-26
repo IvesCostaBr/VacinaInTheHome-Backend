@@ -1,0 +1,17 @@
+name: Pipeline CI/CD VacinaInTheHome BackEnd
+
+on:
+  push:
+    branches: [ developer ]
+
+jobs:
+  deploy_heroku:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Testing Env
+      run: |
+        ls
+        
