@@ -15,14 +15,16 @@ class UserViewset(viewsets.ModelViewSet):
     authentication_class=[JSONWebTokenAuthentication]
     
     def get_queryset(self):
-        print("entrei na view")
         if self.request.user.is_superuser:   
             return User.objects.all()
     
     def retrieve(self, request, pk=None):
+        user = self.request.user
         instance = self.get_object()
-        serializer = self.serializer_class(instance)
-        return Response(serializer.data)
+        if user == instance:
+            serializer = self.serializer_class(instance)
+            return Response(serializer.data)
+        return Response({"message":"operation not allowed"}, 403)
     
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
@@ -40,7 +42,10 @@ class CreateUser(APIView):
                 cpf=request.data.get('cpf'),
                 card_sus=request.data.get('card_sus'),
             )
-            response_code = 201
+            if user.is_valid:  
+                response_code = 201
+            else:
+                response_code = 500
         except:
             response_code = 500
             raise Exception("Erro ao cadastrar usuário")
