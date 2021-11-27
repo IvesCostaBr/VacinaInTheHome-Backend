@@ -13,5 +13,5 @@ class Vacina(models.Model):
     ("Girpe", "gripe")
 )
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    vacina_type = models.CharField(max_length=30,choices=VACINAS_DISPONIVEIS, default=VACINAS_DISPONIVEIS[0])
+    vacina_type = models.CharField(max_length=30,choices=VACINAS_DISPONIVEIS)
     

@@ -11,20 +11,24 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
  
 class UserViewset(viewsets.ModelViewSet): 
     serializer_class = UserSerializer
-    permission_class =[IsAuthenticated]
-    authentication_class=[JSONWebTokenAuthentication]
+    authentication_classes=[JSONWebTokenAuthentication]
+    permission_classes =[IsAuthenticated]
+    
     
     def get_queryset(self):
         if self.request.user.is_superuser:   
             return User.objects.all()
     
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, pk):
         user = self.request.user
-        instance = self.get_object()
+        instance = User.objects.get(uuid=pk)
         if user == instance:
             serializer = self.serializer_class(instance)
             return Response(serializer.data)
         return Response({"message":"operation not allowed"}, 403)
+    
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
     
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
