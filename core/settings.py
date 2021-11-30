@@ -52,7 +52,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://vacina-in-the-home-front.herokuapp.com/",
+    "https://vacina-in-the-home-front.herokuapp.com",
     "http://localhost:4200",
 ]
 
