@@ -1,24 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
-# from authentication.controllers import UserController, UserPublicController
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView
-)
-
-
-router = routers.DefaultRouter()
-# router.register(r'auth/users', UserController, basename='authentication')
-# router.register(r'users', UserPublicController, basename='authentication')
+from rest_framework_jwt.views import obtain_jwt_token
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('authentication/', include('authentication.urls')),
-    path('auth/token/', TokenObtainPairView.as_view()),
-    path('auth/token/refresh', TokenRefreshView.as_view()),
-    path('auth/token/verify', TokenVerifyView.as_view()),
+    path('authentication/', include('apps.authentication.urls')),
+    path('', include('apps.user.urls')),
+    path('', include('apps.agendamento.urls')),
+    path('connect/token/',obtain_jwt_token)
 ]
