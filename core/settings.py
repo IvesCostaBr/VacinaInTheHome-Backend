@@ -51,7 +51,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://vacina-in-the-home-front.herokuapp.com/",
+    "http://localhost:4200",
+]
 
 ROOT_URLCONF = 'core.urls'
 
