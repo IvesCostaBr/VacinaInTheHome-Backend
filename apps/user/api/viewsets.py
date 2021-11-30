@@ -1,3 +1,4 @@
+from django.db import router
 from django.http.response import HttpResponse
 from rest_framework import response
 from rest_framework.response import Response
@@ -5,6 +6,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from ..models import User
+from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
@@ -32,6 +34,10 @@ class UserViewset(viewsets.ModelViewSet):
     
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+    
+    @action(detail=False, methods=['get'], url_path='get-user_by_token')
+    def get_user(self, request):
+        return Response(self.serializer_class(self.request.user).data)
     
     
     

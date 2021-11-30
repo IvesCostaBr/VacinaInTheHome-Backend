@@ -13,11 +13,16 @@ class AgendamentoViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated,]
     
     def get_queryset(self):
-        if self.request.user.is_superuser:
+        if self.request.user.is_staff:
             list_agendamentos = Agendamento.objects.all()
             if list_agendamentos:
                 return list_agendamentos
-        
+        else:
+            list_agendamentos = Agendamento.objects.filter(paciente=self.request.user)
+            if list_agendamentos:
+                return list_agendamentos
+            
+            
     def retrieve(self, request, pk , *args, **kwargs):
         user_request = self.request.user
         agendamento = Agendamento.objects.get(uuid=pk)

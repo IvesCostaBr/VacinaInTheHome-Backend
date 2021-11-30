@@ -12,14 +12,20 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 class Endereco(models.Model):
     rua = models.CharField(max_length=60)
+    numero = models.IntegerField()
+    complemento = models.CharField(max_length=40, null=True, blank=True)
     bairro = models.CharField(max_length=40)
     cidade = models.CharField(max_length=60)
     estado = models.CharField(max_length=40, default="Acre")
+    
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cpf = models.CharField(max_length=12)
+    rg = models.CharField(max_length=15, null=True, blank=True)
+    mother = models.CharField(max_length=60, null=True, blank=True)
+    data_nascimento = models.DateField(blank=True, null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     username = None
@@ -30,6 +36,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     #TODO: Trocar OneToOneField por um ForeingKey
     adress =  models.OneToOneField(Endereco, 
                                    on_delete=models.CASCADE, null=True, blank=True)
+    
+    
+    
+    
 
     USERNAME_FIELD = 'email'
     #TODO:Alterar em produção

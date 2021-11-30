@@ -6,7 +6,6 @@ from rest_framework_jwt import views as jwt_views
 
 
 
-
 class Login(APIView):
     serializer_class = LoginSerializer
     
