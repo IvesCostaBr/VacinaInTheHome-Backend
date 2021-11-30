@@ -1,8 +1,8 @@
-name: D3 Site Test/Deploy Pipeline
+name: VacinaInTheHome Pipeline Deploy Backend
 
 on:
   push:
-    branches: [ master ]
+    branches: [ developer ]
 
 jobs:
   deploy_heroku:
@@ -14,10 +14,6 @@ jobs:
     - name: install heroku
       run: |
         curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-
-    - name: testing
-      run:
-        ls
 
     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:

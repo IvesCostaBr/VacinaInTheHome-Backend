@@ -1,4 +1,4 @@
-name: D3 Site Test/Deploy Pipeline
+name: VacinaInTheHome Pipeline Deploy Backend
 
 on:
   push:
