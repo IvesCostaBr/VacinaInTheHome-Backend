@@ -2,7 +2,7 @@ name: VacinaInTheHome Pipeline Deploy Backend
 
 on:
   push:
-    branches: [ developer ]
+    branches: [ master ]
 
 jobs:
   deploy_heroku:
